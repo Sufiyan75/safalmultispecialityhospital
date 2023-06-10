@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Patient Registration</title>
+
+    <link
+        href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic"
+        rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../materials/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../materials/vendor/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../materials/vendor/themify-icons/themify-icons.min.css">
+    <link href="../materials/vendor/animate.css/animate.min.css" rel="stylesheet" media="screen">
+    <link href="../materials/vendor/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet" media="screen">
+    <link href="../materials/vendor/switchery/switchery.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="../materials/css/styles.css">
+    <link rel="stylesheet" href="../materials/css/style2.css">
+    <link rel="stylesheet" href="../materials/css/plugins.css">
+    <link rel="stylesheet" href="../materials/css/themes/theme-1.css" id="skin_color" />
+
+    <script type="text/javascript">
+        function valid() {
+            if (document.registration.password.value != document.registration.password_again.value) {
+                alert("Password and Confirm Password Field do not match  !!");
+                document.registration.password_again.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+
+<body class="login">
+    <header id="menu-jk">
+        <div id="nav-head" class="header-nav">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-md-3  col-sm-10"
+                        style="color:#000;font-weight:bold; font-size:42px; margin-top: 1% !important;">
+                        <a data-toggle="collapse" data-target="#menu" href="#menu"></a>
+                        <div class="png">
+                            <a href="#"><img src="../materials\images\safal-removebg-preview.png"></a>
+                        </div>
+                    </div>
+                    <div id="menu" class="col-lg-8 col-md-9 d-none d-md-block nav-item">
+                        <ul>
+                            <li><a href="#"><b>Home</b></a></li>
+                            <li><a href="#services"><b>Services</b></a></li>
+                            <li><a href="#about_us"><b>About Us</b> </a></li>
+                            <li><a href="#gallery"><b>Gallery</b></a></li>
+                            <li><a href="#contact_us"><b>Contact Us</b></a></li>
+                            <li><a href="#logins"><b>Login</b></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <form action="patient_reg.php" method="post" id="register">
+        <!-- start: REGISTRATION -->
+        <div class="row">
+            <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+                <div class="logo margin-top-30">
+                    <h2>SAFAL MULTISPECIALITY HOSPITAL | Patient Registration</h2>
+                </div>
+                <!-- start: REGISTER BOX -->
+                <div class="box-register">
+                    <form name="registration" id="registration" method="post" onSubmit="return valid();">
+                        <fieldset>
+                            <legend>
+                                Patient Registration
+                            </legend>
+                            <p>
+                                Enter your details below:
+                            </p>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="fullname" minlength="3" maxlength="25" title="Enter Fullname(Max Length: 25)"
+                                    onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 32)"
+                                    name="fullname" placeholder="Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="username" minlength="3" maxlength="15" title="Enter Username(Max Length: 15)"
+                                    onkeypress="return(event.charCode != 32)" placeholder="User Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" onkeydown="phone()" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" class="form-control" maxlength="10"
+                                    name="phonenumber" id="phonenumber" placeholder="Phone Number" title="Enter Phonenumber(Max Length: 10)" required>
+                                <span id="phonetxt" style="font-size: 12px;"></span>
+                                <script>
+                                    function phone() {
+                                        var form = document.getElementById("register");
+                                        var mobile = document.getElementById("phonenumber").value;
+                                        var phone = document.getElementById("phonetxt");
+                                        var mobileexp = /^\d{10}$/;
+
+                                        if (mobile.match(mobileexp)) {
+                                            form.classList.add("valid");
+                                            form.classList.remove("Invalid");
+                                            phone.innerHTML = "Your Phone Number is valid";
+                                            phone.style.color = "#00ff00";
+                                        }
+                                        else {
+                                            form.classList.remove("valid");
+                                            form.classList.add("Invalid");
+                                            phone.innerHTML = "Your Phone Number is not valid";
+                                            phone.style.color = "#ff0000";
+                                        }
+                                    }   
+                                </script>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" id="dob" name="dob" class="form-control" title="Date Of Birth" placeholder="Date of Birth" required>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" name="city" id="city" required>
+                                    <option value="none" selected disabled hidden>Select a District &#9660;</option>
+                                    <option value="Bapunagar">Bapunagar</option>
+                                    <option value="Dariyapur">Dariyapur</option>
+                                    <option value="Gandhi Road">Gandhi Road</option>
+                                    <option value="Jamalpur">Jamalpur</option>
+                                    <option value="Kalupur">Kalupur</option>
+                                    <option value="Khadia">Khadia</option>
+                                    <option value="Khanpur">Khanpur</option>
+                                    <option value="Manek Chowk">Manek Chowk</option>
+                                    <option value="Nava Vadaj">Nava Vadaj</option>
+                                    <option value="Rakhial">Rakhial</option>
+                                    <option value="Raipur">Raipur</option>
+                                    <option value="Sanand">Sanand</option>
+                                    <option value="Shahibaug">Shahibaug</option>
+                                    <option value="Shahpur">Shahpur</option>
+                                    <option value="Shukhramnagar">Shukhramnagar</option>
+                                    <option value="Sharkhej">Sharkhej</option>
+                                    <option value="Thaltej">Thaltej</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="block">
+                                    Gender
+                                </label>
+                                <div class="clip-radio radio-primary">
+                                    <input type="radio" id="rg-male" name="gender" value="male" required>
+                                    <label for="rg-male">
+                                        Male
+                                    </label>
+                                    <input type="radio" id="rg-female" name="gender" value="female">
+                                    <label for="rg-female">
+                                        Female
+                                    </label>
+                                    <input type="radio" id="rg-other" name="gender" value="other">
+                                    <label for="rg-other">
+                                        Other
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <span class="input-icon">
+                                    <input type="email" class="form-control" name="email" id="email" title="Enter Email"
+                                        onkeydown="ValidateEmail()" placeholder="Email" required>
+                                    <span id="text" style="font-size: 12px;"></span>
+                                    <i class="fa fa-envelope"></i> </span>
+                                <span id="user-availability-status1" style="font-size:12px;"></span>
+                                <script>
+                                    function ValidateEmail() {
+                                        var form = document.getElementById("register");
+                                        var email = document.getElementById("email").value;
+                                        var text = document.getElementById("text");
+
+                                        // var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+                                        var pattern = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/;
+                                        if (email.match(pattern)) {
+                                            form.classList.add("valid");
+                                            form.classList.remove("Invalid");
+                                            text.innerHTML = "Your Email address is valid";
+                                            text.style.color = "#00ff00";
+                                        }
+                                        else {
+                                            form.classList.remove("valid");
+                                            form.classList.add("Invalid");
+                                            text.innerHTML = "Your Email address is not valid";
+                                            text.style.color = "#ff0000";
+                                        }
+                                    }
+                                </script>
+                            </div>
+                            <div class="form-group">
+                                <span class="input-icon">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="Password" minlength="6" title="Enter Password(Min Length: 6)" required>
+                                    <i class="fa fa-lock"></i> </span>
+                            </div>
+                            <div class="form-group">
+                                <span class="input-icon">
+                                    <input type="password" class="form-control" id="password_again" name="password_again"
+                                        placeholder="Password Again" title="Enter Password(Min Length: 6)" required>
+                                    <i class="fa fa-lock"></i> </span>
+                            </div>
+                            <input type="checkbox" onclick="myFunction()" class="check mt-2">&nbsp;show password
+
+                            <div class="form-actions">
+                                <p>
+                                    Already have an account?
+                                    <a href="..\login\patient_login.html">
+                                        Log-in
+                                    </a>
+                                </p>
+                                <br>
+                                <button type="button" class="btn btn-primary pull-left" id="back" name="back">
+                                    <i class="fa fa-arrow-circle-left"></i> <a href="../login/patient_login.html"
+                                        style="color: white;">Back</a>
+                                </button>
+                                <button type="submit" class="btn btn-primary pull-right" id="submit" name="submit">
+                                    Submit <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                    <div class="copyright">
+                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> Safal
+                            Multispeciality Hospital</span>. <span>All rights reserved</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+</body>
+<!-- end: BODY -->
+
+
+<script src="materials/vendor/jquery/jquery.min.js"></script>
+<script src="materials/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="materials/vendor/modernizr/modernizr.js"></script>
+<script src="materials/vendor/jquery-cookie/jquery.cookie.js"></script>
+<script src="materials/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="materials/vendor/switchery/switchery.min.js"></script>
+<script src="materials/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="materials/js/main.js"></script>
+<script src="materials/js/login.js"></script>
+
+<script>
+    jQuery(document).ready(function () {
+        Main.init();
+        Login.init();
+    });
+</script>
+
+<script>
+    function userAvailability() {
+        $("#loaderIcon").show();
+        jQuery.ajax({
+            url: "check_availability.php",
+            data: 'email=' + $("#email").val(),
+            type: "POST",
+            success: function (data) {
+                $("#user-availability-status1").html(data);
+                $("#loaderIcon").hide();
+            },
+            error: function () { }
+        });
+    }
+</script>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("password");
+        var y = document.getElementById("password_again");
+        if (x.type === "password") {
+            x.type = "text";
+            y.type = "text"
+        }
+        else {
+            x.type = "password";
+            y.type = "password";
+        }
+    }
+</script>
+
+</html>

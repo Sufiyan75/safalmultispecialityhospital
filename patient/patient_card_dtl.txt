@@ -1,0 +1,207 @@
+<?php
+session_start();
+error_reporting(0);
+include('../authentication/include/connection.php');
+include('../authentication/include/checklogin.php');
+check_login();
+
+if (isset($_POST['submit'])) {
+   
+
+    
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Patient | Appointment Payment</title>
+
+    <link
+        href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic"
+        rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../materials/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../materials/vendor/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../materials/vendor/themify-icons/themify-icons.min.css">
+    <link href="../materials/vendor/animate.css/animate.min.css" rel="stylesheet" media="screen">
+    <link href="../materials/vendor/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet" media="screen">
+    <link href="../materials/vendor/switchery/switchery.min.css" rel="stylesheet" media="screen">
+    <link href="../materials/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet"
+        media="screen">
+    <link href="../materials/vendor/select2/select2.min.css" rel="stylesheet" media="screen">
+    <link href="../materials/vendor/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css" rel="stylesheet"
+        media="screen">
+    <link href="../materials/vendor/bootstrap-timepicker/bootstrap-timepicker.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="../materials/assets/css/styles.css">
+    <link rel="stylesheet" href="../materials/assets/css/plugins.css">
+    <link rel="stylesheet" href="../materials/css/pat_card_dtl.css">
+    <link rel="stylesheet" href="../materials/assets/css/themes/theme-1.css" id="skin_color" />
+</head>
+
+<?php
+$uname = $_SESSION['user_name'];
+$sql = "SELECT * FROM `patient_reg` WHERE `username`= '$uname'";
+$result = mysqli_query($conn, $sql);
+if(!$result){
+    echo mysqli_error($conn);
+}
+while ($data = mysqli_fetch_assoc($result)) {
+?>
+
+<body>
+    <div id="app">
+        <?php include('../authentication/include/sidebar.php'); ?>
+        <div class="app-content">
+            <?php include('../authentication/include/header.php'); ?>
+            <div class="container">
+
+                <form action="patient_card_dtl.php" method="post">
+                    <div class="col">
+
+                    <h2 class="title" align="center">Enter Card details to Book Appointment</h2><br>
+                    <div class="pull-right">
+                        <span><b>Date: </b><?php echo date('d-m-y'); ?></span>&emsp;
+                        
+                        <span><b>Time: </b>
+                        <?php 
+                            date_default_timezone_set('Asia/Kolkata');
+                            $ldate=date( 'h:i:s A', time () );
+                            echo $ldate; 
+                        ?></span>
+                    </div><br>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col">
+
+                            <h3 class="title">billing address</h3>
+
+                            <div class="inputBox">
+                                <span>full name :</span>
+                                <input type="text" name="fullname" value="<?php echo $data['fullname']; ?>">
+                            </div>
+                            <div class="inputBox">
+                                <span>email :</span>
+                                <input type="email" name="email" value="<?php echo $data['email']; ?>">
+                            </div>
+                            <div class="inputBox">
+                                <span>Area :</span>
+                                <input type="text" name="area" value="<?php echo $data['city']; ?>">
+                            </div>
+                            <div class="inputBox">
+                                <span>city :</span>
+                                <input type="text" name="city" placeholder="Ahmedabad" required>
+                            </div>
+
+                            <div class="flex">
+                                <div class="inputBox">
+                                    <span>State :</span>
+                                    <input type="text" name="state" placeholder="Gujarat" required>
+                                </div>
+                                <div class="inputBox">
+                                    <span>Pin Code :</span>
+                                    <input type="text" name="pincode" placeholder="3800" required onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" maxlength="6">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+
+                            <h3 class="title">payment</h3>
+
+                            <div class="inputBox">
+                                <span>cards accepted :</span>
+                                <img src="../materials/images/card_img.png" alt="">
+                            </div>
+                            <div class="inputBox">
+                                <span>name on card :</span>
+                                <input type="text" placeholder="<?php echo $data['fullname']; ?>" required>
+                            </div>
+                            <div class="inputBox">
+                                <span>card number :</span>
+                                <input type="text" placeholder="1111-2222-3333-4444" maxlength="19" required>
+                            </div>
+                            <div class="inputBox">
+                                <span>exp month :</span>
+                                <input type="text" placeholder="01" required onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" maxlength="2">
+                            </div>
+
+                            <div class="flex">
+                                <div class="inputBox">
+                                    <span>exp year :</span>
+                                    <input type="text" placeholder="2022" required onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" maxlength="4">
+                                </div>
+                                <div class="inputBox">
+                                    <span>CVV :</span>
+                                    <input type="text" placeholder="019" required onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" maxlength="3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                        
+                        // $fnm = $data['fullname'];
+                        $sql = "SELECT fees FROM `appointment` WHERE `username`= '$uname'";
+                        $result = mysqli_query($conn, $sql);
+                        if(!$result){
+                            echo mysqli_error($conn);
+                        }
+                        while ($data = mysqli_fetch_assoc($result)) {
+                            
+                    
+                    ?>
+                    
+
+                    <input type="submit" value="Proceed to checkout <?php echo $data['fees']; ?> " class="submit-btn">
+                    <?php } }?>
+
+                    <div class="pull-left"><br>
+                        <span class="text-bold text-uppercase">&copy; Safal Multispeciality Hospital</span>
+                    </div>
+                </div>
+                    
+                </form>
+
+            </div>
+        </div>
+        <!-- start: FOOTER -->
+        <?php //include('../authentication/include/footer.php'); ?>
+        <!-- end: FOOTER -->
+        <!-- start: SETTINGS -->
+        <?php include('../authentication/include/setting.php'); ?>
+        <!-- end: SETTINGS -->
+    </div>
+    <!-- start: MAIN JAVASCRIPTS -->
+    <script src="../materials/vendor/jquery/jquery.min.js"></script>
+    <script src="../materials/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../materials/vendor/modernizr/modernizr.js"></script>
+    <script src="../materials/vendor/jquery-cookie/jquery.cookie.js"></script>
+    <script src="../materials/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../materials/vendor/switchery/switchery.min.js"></script>
+    <!-- end: MAIN JAVASCRIPTS -->
+    <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+    <script src="../materials/vendor/maskedinput/jquery.maskedinput.min.js"></script>
+    <script src="../materials/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="../materials/vendor/autosize/autosize.min.js"></script>
+    <script src="../materials/vendor/selectFx/classie.js"></script>
+    <script src="../materials/vendor/selectFx/selectFx.js"></script>
+    <script src="../materials/vendor/select2/select2.min.js"></script>
+    <script src="../materials/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="../materials/vendor/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+    <!-- start: CLIP-TWO JAVASCRIPTS -->
+    <script src="../materials/assets/js/main.js"></script>
+    <!-- start: JavaScript Event Handlers for this page -->
+    <script src="../materials/assets/js/form-elements.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            Main.init();
+            FormElements.init();
+        });
+    </script>
+    <!-- end: JavaScript Event Handlers for this page -->
+    <!-- end: CLIP-TWO JAVASCRIPTS -->
+</body>
+
+</html>
